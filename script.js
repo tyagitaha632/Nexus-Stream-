@@ -4,6 +4,7 @@ const JSONBIN_API_KEY = "$2a$10$/.0ucWqnyelIvKg8aItYu.I6fWQm689MIf4Cx89kAwSPT18K
 const ADMIN_PASS = "hinata056";
 let isAdmin = false;
 let currentTab = "anime";
+let activeFolderName = null; // Active Folder state
 
 let siteData = {
     anime: { folders: {}, rootLinks: [] },
@@ -11,7 +12,6 @@ let siteData = {
     edu: { folders: {}, rootLinks: [] }
 };
 
-// 5 Seconds Forced Preloader
 window.addEventListener("DOMContentLoaded", () => {
     loadData();
     setTimeout(() => {
@@ -74,6 +74,7 @@ function toggleAdmin() {
 
 function switchTab(tab, btnElement) {
     currentTab = tab;
+    activeFolderName = null; // Reset inside-folder view when switching category
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     btnElement.classList.add("active");
     render();
@@ -104,6 +105,28 @@ function addFolder() {
     } else {
         alert("Folder name already exists!");
     }
+}
+
+function deleteFolder(cat, folderName, event) {
+    event.stopPropagation();
+    if (confirm(`Are you sure you want to delete folder "${folderName}" and all its links?`)) {
+        delete siteData[cat].folders[folderName];
+        if (activeFolderName === folderName) activeFolderName = null;
+        saveData();
+        updateFolderDropdown();
+    }
+}
+
+// Open Specific Folder (Inside Navigation)
+function enterFolder(folderName) {
+    activeFolderName = folderName;
+    render();
+}
+
+// Exit Folder Back to Grid
+function exitFolder() {
+    activeFolderName = null;
+    render();
 }
 
 function addLink() {
@@ -190,26 +213,69 @@ function renderLinkItem(link, cat, folder, index) {
 
 function render() {
     const area = document.getElementById("contentArea");
-    area.innerHTML = "";
+    const navHeader = document.getElementById("navigationHeader");
+    const categoryTabs = document.getElementById("categoryTabs");
     const data = siteData[currentTab];
+    area.innerHTML = "";
 
+    // CASE 1: Inside A Folder View
+    if (activeFolderName) {
+        categoryTabs.classList.add("hidden");
+        navHeader.classList.remove("hidden");
+        document.getElementById("currentFolderName").innerHTML = `<i class="fa-solid fa-folder-open"></i> ${activeFolderName}`;
+
+        let folderLinks = data.folders[activeFolderName] || [];
+        let linksHTML = folderLinks.map((link, idx) => renderLinkItem(link, currentTab, activeFolderName, idx)).join("");
+
+        area.innerHTML = `
+            <div class="link-list-container">
+                ${linksHTML || '<p style="color:var(--text-muted); text-align:center; padding: 2rem 0;">No links in this folder yet.</p>'}
+            </div>
+        `;
+        return;
+    }
+
+    // CASE 2: Main Category View (Folders Grid + Direct Links)
+    categoryTabs.classList.remove("hidden");
+    navHeader.classList.add("hidden");
+
+    let foldersHTML = "";
     for (let fName in data.folders) {
-        let linksHTML = data.folders[fName].map((link, idx) => renderLinkItem(link, currentTab, fName, idx)).join("");
-        area.innerHTML += `
-            <div class="folder-card">
-                <div class="folder-header"><i class="fa-solid fa-folder-open"></i> ${fName}</div>
-                <div>${linksHTML || '<small style="color:var(--text-muted)">No links added yet.</small>'}</div>
+        let count = data.folders[fName].length;
+        foldersHTML += `
+            <div class="folder-box" onclick="enterFolder('${fName}')">
+                ${isAdmin ? `
+                    <button class="btn-delete-folder-box" onclick="deleteFolder('${currentTab}', '${fName}', event)" title="Delete Folder">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                ` : ''}
+                <i class="fa-solid fa-folder folder-box-icon"></i>
+                <div class="folder-box-name">${fName}</div>
+                <div class="folder-box-count">${count} Item${count === 1 ? '' : 's'}</div>
             </div>
         `;
     }
 
+    let mainHTML = "";
+    if (foldersHTML) {
+        mainHTML += `
+            <h4 style="color:var(--text-muted); margin-bottom: 1rem;"><i class="fa-solid fa-folder"></i> Folders</h4>
+            <div class="folders-grid">${foldersHTML}</div>
+        `;
+    }
+
+    // Direct / Root Links View
     if (data.rootLinks.length > 0) {
         let rootHTML = data.rootLinks.map((link, idx) => renderLinkItem(link, currentTab, null, idx)).join("");
-        area.innerHTML += `
-            <div class="folder-card">
-                <div class="folder-header"><i class="fa-solid fa-layer-group"></i> Direct Links</div>
-                <div>${rootHTML}</div>
-            </div>
+        mainHTML += `
+            <h4 style="color:var(--text-muted); margin: 1.5rem 0 1rem;"><i class="fa-solid fa-layer-group"></i> Direct Links</h4>
+            <div class="link-list-container">${rootHTML}</div>
         `;
     }
+
+    if (!foldersHTML && data.rootLinks.length === 0) {
+        mainHTML = `<p style="color:var(--text-muted); text-align:center; padding: 3rem 0;">No folders or links available in this category.</p>`;
+    }
+
+    area.innerHTML = mainHTML;
 }
