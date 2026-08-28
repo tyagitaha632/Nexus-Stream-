@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus-Stream</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="spinner-box">
+            <div class="circle-border">
+                <div class="circle-core"></div>
+            </div>
+            <p class="loader-text">Connecting to Nexus Stream server...</p>
+        </div>
+    </div>
+
+    <div id="adminBanner" class="admin-banner hidden">
+        <span><i class="fa-solid fa-user-shield"></i> Admin Mode Active</span>
+        <button onclick="toggleAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+
+    <header>
+        <div class="brand">
+            <i class="fa-solid fa-bolt brand-icon"></i>
+            <h2>Nexus-Stream</h2>
+        </div>
+        <button id="adminBtn" onclick="toggleAdmin()"><i class="fa-solid fa-lock"></i> Admin</button>
+    </header>
+
+    <main class="container">
+        <section id="adminPanel" class="admin-panel hidden">
+            <div class="panel-header">
+                <h3><i class="fa-solid fa-sliders"></i> Control Center</h3>
+            </div>
+            <div class="admin-grid">
+                <div class="form-card">
+                    <h4><i class="fa-solid fa-folder-plus"></i> Create Folder</h4>
+                    <select id="folderCategory">
+                        <option value="anime">Anime / Movies / Series</option>
+                        <option value="games">Games / Apps</option>
+                        <option value="edu">Edu / Books / Manga</option>
+                    </select>
+                    <input type="text" id="folderNameInput" placeholder="Folder Name (e.g. Naruto)">
+                    <button class="btn-primary" onclick="addFolder()">Create Folder</button>
+                </div>
+
+                <div class="form-card">
+                    <h4><i class="fa-solid fa-link"></i> Add New Link</h4>
+                    <select id="linkCategory" onchange="updateFolderDropdown()">
+                        <option value="anime">Anime / Movies / Series</option>
+                        <option value="games">Games / Apps</option>
+                        <option value="edu">Edu / Books / Manga</option>
+                    </select>
+                    <select id="linkFolder">
+                        <option value="">No Folder (Root)</option>
+                    </select>
+                    <input type="text" id="linkTitle" placeholder="Link Title">
+                    <input type="url" id="linkUrl" placeholder="https://example.com">
+                    <input type="password" id="linkPassword" placeholder="Protection Password (Optional)">
+                    <button class="btn-primary" onclick="addLink()">Save Link</button>
+                </div>
+            </div>
+        </section>
+
+        <nav class="tabs-wrapper">
+            <button class="tab-btn active" onclick="switchTab('anime', this)"><i class="fa-solid fa-tv"></i> <span>Anime/Movies</span></button>
+            <button class="tab-btn" onclick="switchTab('games', this)"><i class="fa-solid fa-gamepad"></i> <span>Games/Apps</span></button>
+            <button class="tab-btn" onclick="switchTab('edu', this)"><i class="fa-solid fa-book-open"></i> <span>Edu/Manga</span></button>
+        </nav>
+
+        <section id="contentArea" class="content-area"></section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Nexus-Stream</h3>
+                <p>High-speed content index & secure link distribution node.</p>
+            </div>
+            <div class="footer-status">
+                <span class="status-indicator"></span> System Online
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Made with passion by <span>Mohd Sahil Tyagi</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
