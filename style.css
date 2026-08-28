@@ -23,22 +23,19 @@ body {
     overflow-x: hidden;
 }
 
-/* 5 Sec Preloader Animation */
+/* Preloader */
 #preloader {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: #05070d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
     z-index: 9999;
     transition: opacity 0.5s ease;
 }
 
 .spinner-box { text-align: center; }
 .circle-border {
-    width: 65px; height: 65px;
-    padding: 3px;
+    width: 65px; height: 65px; padding: 3px;
     display: flex; justify-content: center; align-items: center;
     border-radius: 50%;
     background: linear-gradient(0deg, rgba(99,102,241,0.1) 33%, var(--primary) 100%);
@@ -50,24 +47,17 @@ body {
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 .loader-text {
-    color: var(--accent);
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    color: var(--accent); font-size: 0.95rem; letter-spacing: 0.5px;
     animation: pulse 1.5s ease-in-out infinite alternate;
 }
-
 @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
 
 /* Header & Banner */
 .admin-banner {
     background: linear-gradient(90deg, #4f46e5, #7c3aed);
-    color: white;
-    padding: 0.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: 600;
+    color: white; padding: 0.5rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; font-weight: 600;
 }
 .admin-banner button {
     background: rgba(0,0,0,0.2); border: none; color: white;
@@ -79,9 +69,7 @@ header {
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--card-border);
     padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     position: sticky; top: 0; z-index: 100;
 }
 
@@ -92,11 +80,8 @@ header {
 #adminBtn {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--card-border);
-    color: var(--text);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
+    color: var(--text); padding: 0.5rem 1rem;
+    border-radius: 8px; cursor: pointer; font-weight: 500;
     transition: all 0.2s;
 }
 #adminBtn:hover { background: var(--primary); border-color: var(--primary); }
@@ -108,8 +93,7 @@ header {
 .admin-panel {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: 16px; padding: 1.5rem;
     margin-bottom: 2rem;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
@@ -121,11 +105,8 @@ header {
 input, select {
     background: rgba(9, 13, 22, 0.8);
     border: 1px solid var(--card-border);
-    color: var(--text);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    outline: none;
-    font-size: 0.9rem;
+    color: var(--text); padding: 0.75rem 1rem;
+    border-radius: 8px; outline: none; font-size: 0.9rem;
 }
 input:focus, select:focus { border-color: var(--primary); }
 
@@ -133,82 +114,107 @@ input:focus, select:focus { border-color: var(--primary); }
     background: var(--primary);
     color: white; border: none;
     padding: 0.75rem; border-radius: 8px;
-    font-weight: 600; cursor: pointer;
-    transition: background 0.2s;
+    font-weight: 600; cursor: pointer; transition: background 0.2s;
 }
 .btn-primary:hover { background: #4f46e5; }
 
 /* Navigation Tabs */
 .tabs-wrapper {
-    display: flex;
-    gap: 0.5rem;
+    display: flex; gap: 0.5rem;
     background: rgba(15, 23, 42, 0.6);
-    padding: 0.35rem;
-    border-radius: 12px;
+    padding: 0.35rem; border-radius: 12px;
     border: 1px solid var(--card-border);
-    margin-bottom: 2rem;
-    overflow-x: auto;
+    margin-bottom: 2rem; overflow-x: auto;
 }
 .tab-btn {
-    flex: 1;
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     background: transparent; border: none;
-    color: var(--text-muted);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600; font-size: 0.85rem;
-    white-space: nowrap;
+    color: var(--text-muted); padding: 0.75rem 1rem;
+    border-radius: 8px; cursor: pointer;
+    font-weight: 600; font-size: 0.85rem; white-space: nowrap;
     transition: all 0.25s ease;
 }
 .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 12px var(--primary-glow); }
 
-/* Content Cards */
-.folder-card {
+/* Breadcrumb & Navigation Header */
+.nav-breadcrumb {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.btn-back {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--card-border);
+    color: var(--text); padding: 0.5rem 1rem;
+    border-radius: 8px; cursor: pointer; font-weight: 600;
+    transition: all 0.2s;
+}
+.btn-back:hover { background: var(--primary); }
+.folder-view-title { font-size: 1.25rem; color: #f59e0b; display: flex; align-items: center; gap: 0.5rem; }
+
+/* Folders Grid Layout (Page View) */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.folder-box {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 14px;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
-    backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
-.folder-header {
-    font-size: 1.05rem; font-weight: 600;
-    color: #f59e0b;
-    margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.5rem;
+.folder-box:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.folder-box-icon { font-size: 2.5rem; color: #f59e0b; }
+.folder-box-name { font-weight: 600; font-size: 1rem; text-align: center; word-break: break-word; }
+.folder-box-count { font-size: 0.8rem; color: var(--text-muted); }
+
+.btn-delete-folder-box {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(244, 63, 94, 0.15);
+    border: none; color: var(--danger);
+    width: 28px; height: 28px; border-radius: 6px;
+    cursor: pointer; transition: all 0.2s;
+}
+.btn-delete-folder-box:hover { background: var(--danger); color: white; }
+
+/* Link Items Container */
+.link-list-container {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 1.25rem;
 }
 
 .link-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     background: rgba(9, 13, 22, 0.5);
     border: 1px solid rgba(255,255,255,0.03);
-    padding: 0.85rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 10px;
-    transition: transform 0.15s, border-color 0.15s;
+    padding: 0.85rem 1rem; margin-bottom: 0.5rem;
+    border-radius: 10px; transition: transform 0.15s, border-color 0.15s;
 }
 .link-item:hover { transform: translateY(-1px); border-color: rgba(99,102,241,0.3); }
 
 .link-title {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
+    color: var(--accent); text-decoration: none;
+    font-weight: 500; font-size: 0.95rem;
     display: flex; align-items: center; gap: 0.6rem;
 }
 .link-title:hover { text-decoration: underline; }
 
 .actions button {
-    background: rgba(255,255,255,0.05);
-    border: none;
-    color: var(--text-muted);
-    width: 32px; height: 32px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-left: 0.2rem;
+    background: rgba(255,255,255,0.05); border: none;
+    color: var(--text-muted); width: 32px; height: 32px;
+    border-radius: 6px; cursor: pointer; margin-left: 0.2rem;
     transition: all 0.2s;
 }
 .actions button:hover { color: white; background: rgba(255,255,255,0.15); }
@@ -217,14 +223,12 @@ input:focus, select:focus { border-color: var(--primary); }
 footer {
     background: rgba(15, 23, 42, 0.9);
     border-top: 1px solid var(--card-border);
-    padding: 2rem 1.5rem 1rem;
-    margin-top: auto;
+    padding: 2rem 1.5rem 1rem; margin-top: auto;
 }
 .footer-content {
     max-width: 1000px; margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
-    padding-bottom: 1.5rem;
+    flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--card-border);
 }
 .footer-brand h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
@@ -236,9 +240,8 @@ footer {
 .footer-bottom { text-align: center; padding-top: 1rem; font-size: 0.8rem; color: var(--text-muted); }
 .footer-bottom span { color: var(--text); font-weight: 600; }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .container { padding: 1rem 0.75rem; }
     .tabs-wrapper { justify-content: flex-start; }
-    .actions button { width: 36px; height: 36px; } /* Mobile touch optimized target */
+    .folders-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 }
