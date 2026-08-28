@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <!-- Preloader -->
     <div id="preloader">
         <div class="spinner-box">
             <div class="circle-border">
@@ -19,6 +20,7 @@
         </div>
     </div>
 
+    <!-- Admin Status Banner -->
     <div id="adminBanner" class="admin-banner hidden">
         <span><i class="fa-solid fa-user-shield"></i> Admin Mode Active</span>
         <button onclick="toggleAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
@@ -33,6 +35,7 @@
     </header>
 
     <main class="container">
+        <!-- Admin Panel -->
         <section id="adminPanel" class="admin-panel hidden">
             <div class="panel-header">
                 <h3><i class="fa-solid fa-sliders"></i> Control Center</h3>
@@ -67,12 +70,20 @@
             </div>
         </section>
 
-        <nav class="tabs-wrapper">
+        <!-- Navigation Tabs -->
+        <nav class="tabs-wrapper" id="categoryTabs">
             <button class="tab-btn active" onclick="switchTab('anime', this)"><i class="fa-solid fa-tv"></i> <span>Anime/Movies</span></button>
             <button class="tab-btn" onclick="switchTab('games', this)"><i class="fa-solid fa-gamepad"></i> <span>Games/Apps</span></button>
             <button class="tab-btn" onclick="switchTab('edu', this)"><i class="fa-solid fa-book-open"></i> <span>Edu/Manga</span></button>
         </nav>
 
+        <!-- Breadcrumb / Back Button Navigation -->
+        <div id="navigationHeader" class="nav-breadcrumb hidden">
+            <button class="btn-back" onclick="exitFolder()"><i class="fa-solid fa-arrow-left"></i> Back to Folders</button>
+            <h3 id="currentFolderName" class="folder-view-title"></h3>
+        </div>
+
+        <!-- Dynamic Content Area -->
         <section id="contentArea" class="content-area"></section>
     </main>
 
